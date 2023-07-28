@@ -1,0 +1,50 @@
+type Query {
+  # Category
+  findAllCategories: [Category]
+  findCategoryById(categoryId: String): Category
+
+  # Product
+  findAllProducts: [Product]
+  findProductById(productId: String): Product
+}
+
+type Mutation {
+  # Category
+  createCategory(inputCategory: InputCategory!): Category
+  deleteCategory(categoryId: String!): String
+
+  # Product
+  createProduct(inputProduct: InputProduct!): Product
+  deleteProduct(productId: String!): String
+}
+
+type Category {
+  id: ID
+  name: String
+  description: String
+  products: [Product]
+}
+
+type Product {
+  id: ID
+  sku: String
+  name: String
+  description: String
+  price: Float
+  status: Boolean
+  category: Category
+}
+
+input InputCategory {
+  name: String!
+  description: String!
+}
+
+input InputProduct {
+  sku: String!
+  name: String!
+  description: String!
+  price: Float!
+  status: Boolean!
+  categoryId: String!
+}
