@@ -1,4 +1,4 @@
-package com.sapientdemo.products.graphql;
+package com.sapientdemo.products.models.dto;
 
 import lombok.Data;
 

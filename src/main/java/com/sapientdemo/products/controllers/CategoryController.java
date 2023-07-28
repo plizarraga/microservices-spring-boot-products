@@ -7,7 +7,7 @@ import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
-import com.sapientdemo.products.graphql.InputCategory;
+import com.sapientdemo.products.models.dto.InputCategory;
 import com.sapientdemo.products.models.entities.Category;
 import com.sapientdemo.products.services.CategoryService;
 
