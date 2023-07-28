@@ -11,10 +11,12 @@ type Query {
 type Mutation {
   # Category
   createCategory(inputCategory: InputCategory!): Category
+  updateCategory(categoryId: String!, inputCategory: InputCategoryUpdate!): Category
   deleteCategory(categoryId: String!): String
 
   # Product
   createProduct(inputProduct: InputProduct!): Product
+  updateProduct(productId: String!, inputProduct: InputProductUpdate!): Product
   deleteProduct(productId: String!): String
 }
 
@@ -40,6 +42,11 @@ input InputCategory {
   description: String!
 }
 
+input InputCategoryUpdate {
+  name: String
+  description: String
+}
+
 input InputProduct {
   sku: String!
   name: String!
@@ -47,4 +54,13 @@ input InputProduct {
   price: Float!
   status: Boolean!
   categoryId: String!
+}
+
+input InputProductUpdate {
+  sku: String
+  name: String
+  description: String
+  price: Float
+  status: Boolean
+  categoryId: String
 }

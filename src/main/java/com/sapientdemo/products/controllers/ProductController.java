@@ -49,7 +49,7 @@ public class ProductController {
         product.setPrice(inputProduct.getPrice());
 
         // Set category
-        Long categoryId = Long.parseLong(inputProduct.getCategorylId());
+        Long categoryId = Long.parseLong(inputProduct.getCategoryId());
         Category category = categoryService.findCategoryById(categoryId);
         if (category == null) {
             return null;
@@ -58,6 +58,52 @@ public class ProductController {
         productService.saveProduct(product);
 
         return product;
+    }
+
+    // Update product by id
+    @MutationMapping
+    public Product updateProduct(@Argument(name = "productId") String id,
+            @Argument(name = "inputProduct") InputProduct inputProduct) {
+        Long productId = Long.parseLong(id);
+
+        Product existingProduct = productService.findProductById(productId);
+
+        if (existingProduct == null) {
+            return null;
+        }
+        // check if sku is provided
+        if (inputProduct.getSku() != null) {
+            existingProduct.setSku(inputProduct.getSku());
+        }
+        // check if name is provided
+        if (inputProduct.getName() != null) {
+            existingProduct.setName(inputProduct.getName());
+        }
+        // check if description is provided
+        if (inputProduct.getDescription() != null) {
+            existingProduct.setDescription(inputProduct.getDescription());
+        }
+        // check if price is provided
+        if (inputProduct.getPrice() != null) {
+            existingProduct.setPrice(inputProduct.getPrice());
+        }
+        // check if status is provided
+        if (inputProduct.getStatus() != null) {
+            existingProduct.setStatus(inputProduct.getStatus());
+        }
+
+        // check if category if provided
+        if (inputProduct.getCategoryId() != null) {
+            Long categoryId = Long.parseLong(inputProduct.getCategoryId());
+            Category category = categoryService.findCategoryById(categoryId);
+            if (category == null) {
+                return null;
+            }
+            existingProduct.setCategory(category);
+        }
+
+        productService.saveProduct(existingProduct);
+        return existingProduct;
     }
 
     // Delete product by id

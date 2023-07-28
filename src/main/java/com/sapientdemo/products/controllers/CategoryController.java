@@ -46,6 +46,31 @@ public class CategoryController {
         return category;
     }
 
+    // Update category by id
+    @MutationMapping
+    public Category updateCategory(@Argument(name = "categoryId") String id,
+            @Argument(name = "inputCategory") InputCategory inputCategory) {
+        Long categoryId = Long.parseLong(id);
+
+        Category existingCategory = categoryService.findCategoryById(categoryId);
+
+        if (existingCategory == null) {
+            return null;
+        }
+
+        // check if name is provided
+        if (inputCategory.getName() != null) {
+            existingCategory.setName(inputCategory.getName());
+        }
+        // check if description is provided
+        if (inputCategory.getDescription() != null) {
+            existingCategory.setDescription(inputCategory.getDescription());
+        }
+
+        categoryService.saveCategory(existingCategory);
+        return existingCategory;
+    }
+
     // Delete category by id
     @MutationMapping
     public String deleteCategory(@Argument(name = "categoryId") String id) {

@@ -9,5 +9,5 @@ public class InputProduct {
     private String description;
     private Double price;
     private Boolean status;
-    private String categorylId;
+    private String categoryId;
 }
