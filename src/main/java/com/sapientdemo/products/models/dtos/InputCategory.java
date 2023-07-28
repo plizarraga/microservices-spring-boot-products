@@ -1,4 +1,4 @@
-package com.sapientdemo.products.models.dto;
+package com.sapientdemo.products.models.dtos;
 
 import lombok.Data;
 
