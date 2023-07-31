@@ -20,14 +20,16 @@ public class CategoryService {
 
     public void saveCategory(Category category) {
         categoryRepository.save(category);
-        log.info("Category added: {}", category);
+        log.info("Category saved: {}", category.getName());
     }
 
     public List<Category> findAllCategories() {
+        log.info("Find all categories");
         return categoryRepository.findAll();
     }
 
     public Category findCategoryById(Long categoryId) {
+        log.info("Find category by id: {}", categoryId);
         var category = categoryRepository.findById(categoryId).orElse(null);
         return category;
     }
@@ -37,11 +39,12 @@ public class CategoryService {
                 .orElse(null);
 
         if (category == null) {
+            log.info("Category deleted by idnot found: {}", categoryId);
             return new GenericResponse(false, "Category not found");
         }
 
         categoryRepository.delete(category);
-        log.info("Category deleted: {}", category);
+        log.info("Category deleted by id: {}", categoryId);
 
         return new GenericResponse(true, "Category deleted successfully");
     }
