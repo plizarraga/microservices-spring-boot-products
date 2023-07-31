@@ -25,6 +25,14 @@ jobs:
         registry: https://containerpedlizar.azurecr.io/
         username: ${{ secrets.AzureAppService_ContainerUsername_ac1103a6828a4bfdb2756629730a68cf }}
         password: ${{ secrets.AzureAppService_ContainerPassword_00330ec5386649aba8a69fafbe91c9f9 }}
+    
+    - name: Set up Java version
+      uses: actions/setup-java@v1
+      with:
+        java-version: '17'
+
+    - name: Build with Maven
+      run: mvn clean install
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v3
