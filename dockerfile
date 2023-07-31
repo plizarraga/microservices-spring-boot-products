@@ -1,17 +1,3 @@
-# FROM amazoncorretto:17-alpine
-
-# COPY target/*.jar app.jar
-
-# EXPOSE 8090
-
-# ENTRYPOINT [ "java", "-jar", "app.jar" ]
-
-
-# FROM maven:3-eclipse-temurin-11 AS build
-# COPY src /home/app/src
-# COPY pom.xml /home/app
-# RUN mvn -f /home/app/pom.xml clean package
-
 # Build Stage
 FROM maven:3.8.3-openjdk-17 AS build
 
@@ -30,7 +16,14 @@ COPY src /home/app/src
 # Build the application
 RUN mvn package -DskipTests
 
+# Final Stage
 FROM amazoncorretto:17-alpine
-COPY --from=build /home/app/target/*.jar /usr/local/lib/app.jar
+
+# Copy the built JAR file from the build stage
+COPY --from=build /home/app/target/*.jar /app.jar
+
+# Expose the port on which the application is listening
 EXPOSE 8090
-ENTRYPOINT ["java","-jar","/usr/local/lib/app.jar"]
+
+# Specify the command to run the application
+CMD ["java", "-jar", "/app.jar"]
